@@ -1,6 +1,8 @@
 import sys, string
 from xml.dom import minidom, Node
 
+# Modified by CC
+
 def walk(parent, outFile, level):                               # [1]
     for node in parent.childNodes:
         if node.nodeType == Node.ELEMENT_NODE:
