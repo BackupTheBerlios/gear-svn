@@ -1,3 +1,5 @@
+#MODIFICATO MODIFICATO
+
 # -*- coding: cp1252 -*-
 
 import win32com.client
