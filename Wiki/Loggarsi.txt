@@ -1,0 +1,12 @@
+http://wiki.r-project.org/rwiki/doku.php?id=wiki:rhighlighting
+[22:12:30] Christine Choirat scrive :http://developer.berlios.de/account/register.php
+[22:17:43] Christine Choirat scrive :ssh://ptenconi@shell.berlios.de
+[22:18:16] Christine Choirat scrive :ssh://cchoirat@shell.berlios.de/home/groups/gear
+[22:18:27] Christine Choirat scrive :/home/groups/gear
+[22:18:35] Christine Choirat scrive :webpage: htdocs
+[22:19:01] Christine Choirat scrive :ssh://cchoirat@shell.berlios.de/home/groups/gear/htdocs/wiki
+[22:19:20] Christine Choirat scrive :per il wiki
+
+
+
+
