@@ -1,5 +1,6 @@
 import sys, string
 from xml.sax import handler, make_parser
+# changed by CC
 
 class MySaxDocumentHandler(handler.ContentHandler):             # [1]
     def __init__(self, outfile):                                # [2]
