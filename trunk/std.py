@@ -15,6 +15,8 @@ import numpy as N
 import numpy.random as R
 import scipy as S
 import scipy.linalg as L
+from numpy import ndarray
+from numpy.core.defmatrix import matrix
 
 def cbind(source, *args):
     """Like the R cbind function.  It concatenates arrays column-wise
@@ -232,65 +234,42 @@ def pmat(m, rownames=None, colnames=None):
             print cc(str(m[i, j]), width=5, just='right'),
         print ''
     
-m = N.mat('1. 2 3; 4 5 6')
-o = N.mat(1)
-
-
 
 
 
 def ones(r, c=None,dtype=None):
-	"""Matrix filled with dval.
-
-	If r and c are numbers, it returns a (r, c) matrix,
-	r and c being converted to integers when needed.
-
-	If r is a (m, n) matrix, it returns an (m, n) matrix.   
-	"""
-	try:
-		a = ndarray.__new__(matrix,(r,c),dtype)
-	except TypeError:
-		a = ndarray.__new__(matrix,r.shape,dtype)
-	a.fill(1)
-	return(a)
+    try:
+        a = ndarray.__new__(matrix,(r,c),dtype)
+    except TypeError:
+        a = ndarray.__new__(matrix,r.shape,dtype)
+        a.fill(1)
+    return(a)
 
 
 def zeros(r, c=None,dtype=None):
-    """Matrix filled with dval.
-
-    If r and c are numbers, it returns a (r, c) matrix,
-    r and c being converted to integers when needed.
-
-    If r is a (m, n) matrix, it returns an (m, n) matrix.   
-    """
-	try:
-		a = ndarray.__new__(matrix,(r,c),dtype)
-	except TypeError:
-		a = ndarray.__new__(matrix,r.shape,dtype)
-	a.fill(0)
-	return(a)
+    try:
+        a = ndarray.__new__(matrix,(r,c),dtype)
+    except TypeError:
+        a = ndarray.__new__(matrix,r.shape,dtype)
+        a.fill(0)
+    return(a)
 	
 
 def constant(dval,r, c=None,dtype=None):
-    """Matrix filled with dval.
-
-    If r and c are numbers, it returns a (r, c) matrix,
-    r and c being converted to integers when needed.
-
-    If r is a (m, n) matrix, it returns an (m, n) matrix.   
-    """
-	try:
-		a = ndarray.__new__(matrix,(r,c),dtype)
-	except TypeError:
-		a = ndarray.__new__(matrix,r.shape,dtype)
-	a.fill(0)
-	return(dval)
+    try:
+        a = ndarray.__new__(matrix,(r,c),dtype)
+    except TypeError:
+        a = ndarray.__new__(matrix,r.shape,dtype)
+    a.fill(0)
+    return(dval)
 
 
 
 
-
-if __name__ == "__main__": # when run as a script
-	x=rann(10,2)
+if __name__ == "__main__":
+    a = zeros(4,2)
+    print(a)
+    
+	
 	
 
