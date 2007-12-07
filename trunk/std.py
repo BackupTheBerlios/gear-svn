@@ -236,6 +236,13 @@ def pmat(m, rownames=None, colnames=None):
     
 
 def ones(r, c=None,dtype=None):
+    """Matrix filled with dval.
+
+    If r and c are numbers, it returns a (r, c) matrix,
+    r and c being converted to integers when needed.
+
+    If r is a (m, n) matrix, it returns an (m, n) matrix.   
+    """
     try:
         a = ndarray.__new__(matrix, (r, c), dtype)
     except TypeError:
@@ -245,6 +252,13 @@ def ones(r, c=None,dtype=None):
 
 
 def zeros(r, c=None,dtype=None):
+    """Matrix filled with zeros.
+
+    If r and c are numbers, it returns a (r, c) matrix,
+    r and c being converted to integers when needed.
+
+    If r is a (m, n) matrix, it returns an (m, n) matrix.   
+    """
     try:
         a = ndarray.__new__(matrix, (r, c), dtype)
     except TypeError:
@@ -254,6 +268,13 @@ def zeros(r, c=None,dtype=None):
 	
 
 def constant(dval, r, c=None, dtype=None):
+    """Matrix filled with dval.
+
+    If r and c are numbers, it returns a (r, c) matrix,
+    r and c being converted to integers when needed.
+
+    If r is a (m, n) matrix, it returns an (m, n) matrix.   
+    """
     try:
         a = ndarray.__new__(matrix, (r, c), dtype)
     except TypeError:
