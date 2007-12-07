@@ -246,7 +246,7 @@ def ones(r, c=None,dtype=None):
 
 def zeros(r, c=None,dtype=None):
     try:
-        a = ndarray.__new__(m6atrix,(r, c), dtype)
+        a = ndarray.__new__(matrix, (r, c), dtype)
     except TypeError:
         a = ndarray.__new__(matrix, r.shape, dtype)
     a.fill(0.)
