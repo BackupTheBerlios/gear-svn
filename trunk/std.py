@@ -32,20 +32,20 @@ def cbind(source, *args):
     source = N.asarray(source)
     if len(source.shape)==1:
         width = 1
-        source = N.resize(source,[source.shape[0],width])
+        source = N.resize(source, [source.shape[0], width])
     else:
         width = source.shape[1]
     for addon in args:
         if len(addon.shape)==1:
             width = 1
-            addon = N.resize(addon,[source.shape[0],width])
+            addon = N.resize(addon, [source.shape[0], width])
         else:
             width = source.shape[1]
         if len(addon) < len(source):
-            addon = N.resize(addon,[source.shape[0],addon.shape[1]])
+            addon = N.resize(addon, [source.shape[0], addon.shape[1]])
         elif len(source) < len(addon):
-            source = N.resize(source,[addon.shape[0],source.shape[1]])
-        source = N.concatenate((source,addon),1)
+            source = N.resize(source,[addon.shape[0], source.shape[1]])
+        source = N.concatenate((source, addon), 1)
     return source
 
 def rbind(source, *args):
@@ -62,20 +62,20 @@ def rbind(source, *args):
     source = N.asarray(source)
     if len(source.shape)==1:
         height = 1
-        source = N.resize(source,[height,source.shape[1]])
+        source = N.resize(source, [height, source.shape[1]])
     else:
         height = source.shape[0]
     for addon in args:
         if len(addon.shape)==1:
             height = 1
-            addon = N.resize(addon,[height, source.shape[1]])
+            addon = N.resize(addon, [height, source.shape[1]])
         else:
             height = source.shape[0]
         if len(addon) < len(source):
-            addon = N.resize(addon,[addon.shape[0], source.shape[1]])
+            addon = N.resize(addon, [addon.shape[0], source.shape[1]])
         elif len(source) < len(addon):
-            source = N.resize(source,[source.shape[0], addon.shape[1]])
-        source = N.concatenate((source,addon),0)
+            source = N.resize(source, [source.shape[0], addon.shape[1]])
+        source = N.concatenate((source, addon), 0)
     return source
 
 ##--------------------------------------------------------------------
@@ -235,39 +235,34 @@ def pmat(m, rownames=None, colnames=None):
         print ''
     
 
-
-
 def ones(r, c=None,dtype=None):
     try:
-        a = ndarray.__new__(matrix,(r,c),dtype)
+        a = ndarray.__new__(matrix, (r, c), dtype)
     except TypeError:
-        a = ndarray.__new__(matrix,r.shape,dtype)
-        a.fill(1)
+        a = ndarray.__new__(matrix, r.shape, dtype)
+    a.fill(1.)
     return(a)
 
 
 def zeros(r, c=None,dtype=None):
     try:
-        a = ndarray.__new__(matrix,(r,c),dtype)
+        a = ndarray.__new__(m6atrix,(r, c), dtype)
     except TypeError:
-        a = ndarray.__new__(matrix,r.shape,dtype)
-        a.fill(0)
+        a = ndarray.__new__(matrix, r.shape, dtype)
+    a.fill(0.)
     return(a)
 	
 
-def constant(dval,r, c=None,dtype=None):
+def constant(dval, r, c=None, dtype=None):
     try:
-        a = ndarray.__new__(matrix,(r,c),dtype)
+        a = ndarray.__new__(matrix, (r, c), dtype)
     except TypeError:
-        a = ndarray.__new__(matrix,r.shape,dtype)
-    a.fill(0)
-    return(dval)
-
-
-
+        a = ndarray.__new__(matrix, r.shape, dtype)
+    a.fill(dval)
+    return(a)
 
 if __name__ == "__main__":
-    a = zeros(4,2)
+    a = zeros(4, 2)
     print(a)
     
 	
