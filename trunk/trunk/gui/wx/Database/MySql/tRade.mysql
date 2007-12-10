@@ -1,0 +1,153 @@
+
+
+
+CREATE DATABASE IF NOT EXISTS tRade;
+USE tRade;
+
+CREATE TABLE IF NOT EXISTS ListaTitoli
+(
+	IDTitolo INT NOT NULL AUTO_INCREMENT,
+	Tick1 VARCHAR(20) NOT NULL,
+	Tick2 VARCHAR(20),
+	Tick3 VARCHAR(20),
+	Tick4 VARCHAR(20),
+	Description VARCHAR(40),
+	Type ENUM('Stock','Index','Future','Fund','Option','Exchange'),
+	Nazione VARCHAR(20),
+	Mercato VARCHAR(20),	
+	PRIMARY KEY(IDTitolo)
+);
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS QuotazioniTitoli
+(
+	IDTitolo INT,
+	Date DATE,
+	High FLOAT,
+	Low FLOAT,
+	Open FLOAT,
+	Close FLOAT,
+	Volume FLOAT,
+	AdjClose FLOAT
+);
+
+
+
+CREATE TABLE IF NOT EXISTS QuotazioniIndici
+(
+	IDTitolo INT,
+	Date DATE,
+	High FLOAT,
+	Low FLOAT,
+	Open FLOAT,
+	Close FLOAT,
+	Volume FLOAT
+	
+);
+
+
+CREATE TABLE IF NOT EXISTS QuotazioniFutures
+(
+	IDTitolo INT,
+	Date DATE,
+	High FLOAT,
+	Low FLOAT,
+	Open FLOAT,
+	Close FLOAT,
+	Volume FLOAT,
+	OpenInterest FLOAT
+);
+
+CREATE TABLE IF NOT EXISTS QuotazioniOpzioni
+(
+	IDTitolo INT,
+	Code INT,
+	Type ENUM('Call','Put'),
+	Excercise ENUM('American','European'),
+	Date DATE,
+	Expiration DATE,
+	Strike FLOAT,
+	Price FLOAT,
+	ImpliedVolatility FLOAT,
+	Volume FLOAT
+
+);
+
+
+
+CREATE TABLE IF NOT EXISTS QuotazioniFondi
+(
+	IDTitolo INT,
+	Date DATE,
+	Quote FLOAT	
+);
+
+
+CREATE TABLE IF NOT EXISTS QuotazioniCambi
+(
+	IDTitolo INT,
+	Date DATE,
+	High FLOAT,
+	Low FLOAT,
+	Open FLOAT,
+	Close FLOAT,
+	Volume FLOAT
+	
+);
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS Portfolio
+(
+	IDPortfolio INT NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(20),
+	Description VARCHAR(40),
+	PRIMARY KEY(IDPortfolio)
+);
+
+CREATE TABLE IF NOT EXISTS PortfolioElements
+(
+	IDPortfolio INT,
+	IDTitolo INT
+);
+
+
+CREATE TABLE IF NOT EXISTS Operazioni
+(
+	IDOperazione INT NOT NULL AUTO_INCREMENT,
+	IDPortfolio INT,
+	DataOperazione DATE,
+	Tipo Enum('Stock','Call','Put','Future','CoveredWarrant'),
+	IDTitolo INT,
+	DataQuota DATE,
+	Price FLOAT,
+	Quantity INT,
+	Azione ENUM('Buy','Sell','Short','Cover'),
+	Commissione FLOAT,
+	PRIMARY KEY(IDOperazione)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS StudiTecnici
+(
+	IDStudio INT NOT NULL AUTO_INCREMENT,
+	Description VARCHAR(100),
+	Link VARCHAR(200),
+	PRIMARY KEY(IDStudio)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS StudiTecniciDettagli
+(
+	IDStudio INT,
+	IDTitolo INT
+);
+
+
