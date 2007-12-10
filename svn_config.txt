@@ -1,0 +1,20 @@
+svn checkout svn+ssh://svn.berlios.de/svnroot/repos/gear
+
+IMPORT
+
+
+CHECKOUT
+svn checkout svn+ssh://cchoirat@svn.berlios.de/svnroot/repos/gear/
+
+
+UPLOAD DOCUMENTS ON BERLIOS
+export SVN_SSH="ssh -l cchoirat" 
+svn -m "import comment" import svn+ssh://svn.berlios.de/svnroot/repos/gear/
+
+
+TESTED METHOD:
+
+IN: /media/IOMEGA HDD/Documents/Gear/Svn]$
+svn checkout svn+ssh://cchoirat@svn.berlios.de/svnroot/repos/gear/
+export SVN_SSH="ssh -l cchoirat"
+svn -m "import comment" import svn+ssh://svn.berlios.de/svnroot/repos/gear/

@@ -1,0 +1,15 @@
+<StatusBar>
+
+	<Button label='Open' image ='images/fileopen.png' event='self.parent.editor.OnFileOpen'>Apre File</Button>
+	<Button label='Close' image ='images/filesave.png' event='self.parent.editor.OnFileClose'>Chiude File</Button>
+	<Separator/>
+	
+	<Button label='Open' image ='images/spe.png' event='self.parent.editor.OnFileOpen'>Apre File</Button>
+	<Button label='Close' image ='images/keyboard.png' event='self.parent.editor.OnFileClose'>Chiude File</Button>
+	<Separator/>
+	
+	<Button label='Open' image ='images/key.png' event='self.parent.editor.OnFileOpen'>Apre File</Button>
+	<Button label='Close' image ='images/spe.png' event='self.parent.editor.OnFileClose'>Chiude File</Button>
+	<Separator/>
+	
+</StatusBar>
