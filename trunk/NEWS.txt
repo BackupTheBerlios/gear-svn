@@ -7,5 +7,5 @@ Aggiunta da un'altra parte
 Aggiunta ultimissima riga
 
 def pippo:
-   pass, finito
+   pass, finito e rifinito
 
