@@ -1,20 +1,8 @@
-Prima riga nuova
-MODIFICA DI PAOLO psss
-modififica seconda
+def prima(x):
+   y = x+2
+   return(y)
 
-Aggiunta prima della penultima riga
-Aggiunta da un'altra parte
-Aggiunta ultimissima riga
-
-
-
-def pippo:
-   pass, finito e rifinito, da B
-
-
-def pluto:
-   pass, finito e rifinito, modificato
-   passaggio
-   ripassaggio
-   terza modifica
+def seconda(x):
+   y = x-2
+   return(y)
 
