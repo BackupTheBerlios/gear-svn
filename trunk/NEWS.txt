@@ -5,3 +5,7 @@ modififica seconda
 Aggiunta prima della penultima riga
 Aggiunta da un'altra parte
 Aggiunta ultimissima riga
+
+def pippo:
+   pass
+
