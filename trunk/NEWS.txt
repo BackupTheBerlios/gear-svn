@@ -6,6 +6,11 @@ def terza(x):
    y = x*3
    return(y)
 
+def quarta(x):
+   y = x^3
+   return(y)
+
+
 
 def seconda(x):
    y = x-2
