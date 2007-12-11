@@ -2,6 +2,11 @@ def prima(x):
    y = x+2
    return(y)
 
+def terza(x):
+   y = x*3
+   return(y)
+
+
 def seconda(x):
    y = x-2
    return(y)
