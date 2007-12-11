@@ -1,3 +1,7 @@
+def STRAV(x):
+   h = 20
+
+
 def prima(x):
    y = x+2
    return(y)
