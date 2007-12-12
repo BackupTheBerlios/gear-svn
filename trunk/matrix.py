@@ -20,7 +20,7 @@ from numpy.core.defmatrix import matrix, asmatrix
 
 from exceptions import *
 
-
+import exceptions as E
 
 
 
@@ -70,7 +70,7 @@ def pmat(m, rownames=None, colnames=None):
 ## Matrix creation
 ##--------------------------------------------------------------------
 
-def zeros(r, c=None,dtype=None):
+def zeros(r, c=None):
     """Matrix filled with zeros.
 
     If r and c are numbers, it returns a (r, c) matrix,
@@ -79,13 +79,13 @@ def zeros(r, c=None,dtype=None):
     If r is a (m, n) matrix, it returns an (m, n) matrix.   
     """
     try:
-        a = ndarray.__new__(matrix,(r,c),dtype)
+        a = ndarray.__new__(matrix,(r,c))
     except TypeError:
-        a = ndarray.__new__(matrix,r.shape,dtype)
+        a = ndarray.__new__(matrix,r.shape)
     a.fill(0)
     return(a)
 	
-def ones(r, c=None,dtype=None):
+def ones(r, c=None):
     """Matrix filled with ones.
 
     If r and c are numbers, it returns a (r, c) matrix,
@@ -94,13 +94,13 @@ def ones(r, c=None,dtype=None):
     If r is a (m, n) matrix, it returns an (m, n) matrix.   
     """
     try:
-        a = ndarray.__new__(matrix,(r,c),dtype)
+        a = ndarray.__new__(matrix,(r,c))
     except TypeError:
-        a = ndarray.__new__(matrix,r.shape,dtype)
+        a = ndarray.__new__(matrix,r.shape)
     a.fill(1)
     return(a)
 
-def constant(dval,r, c=None,dtype=None):
+def constant(dval,r, c=None):
     """Matrix filled with dval.
 
     If r and c are numbers, it returns a (r, c) matrix,
@@ -109,13 +109,13 @@ def constant(dval,r, c=None,dtype=None):
     If r is a (m, n) matrix, it returns an (m, n) matrix.   
     """  
     try:
-        a = ndarray.__new__(matrix,(r,c),dtype)
+        a = ndarray.__new__(matrix,(r,c))
     except TypeError:
-        a = ndarray.__new__(matrix,r.shape,dtype)
+        a = ndarray.__new__(matrix,r.shape)
     a.fill(dval)
     return(a)
 
-def unit(r, c=None,dtype=None):
+def unit(r, c=None):
     """Identity matrix.
 
      If r and c are numbers, it returns a (r, c) matrix,
@@ -125,16 +125,16 @@ def unit(r, c=None,dtype=None):
     
     """
     try:
-        return asmatrix(N.eye(r, c, dtype=dtype))
+        return asmatrix(N.eye(r, c))
     except TypeError:
-        return asmatrix(N.eye(r.shape[0], r.shape[1], dtype=dtype))
+        return asmatrix(N.eye(r.shape[0], r.shape[1]))
 
 def diag(ma):
     """Diagonal matrix with ma on the diagonal.
 
     ma needs to be (1, k) or (k, 1).
     """
-    _assertVectorOrScalar(asmatrix(ma))
+    E._assertVectorOrScalar(asmatrix(ma))
     ma = N.mat(ma)
     return S.diagflat(ma)
  
@@ -159,7 +159,7 @@ def toeplitz(ma, cm=None):
     if cm is provided. Otherwise, it is (k, k)
     """
     ma = asmatrix(ma)
-    _assertVectorOrScalar(ma)
+    E._assertVectorOrScalar(ma)
     if type(cm) == None:
         return asmatrix(L.basic.toeplitz(ma))
     else:
@@ -175,8 +175,107 @@ def toeplitz(ma, cm=None):
             
 
 
+
+##--------------------------------------------------------------------
+## statistics
+##--------------------------------------------------------------------
+
+def mean(x):
+    return N.ndarray.mean(x, axis=None, out=None)._align(axis=None)
+
+def meanc(x):
+    return N.ndarray.mean(x, axis=0, out=None)._align(axis=0)
+
+def meanr(x):
+    return N.ndarray.mean(x, axis=1, out=None)._align(axis=1)
+
+def min(x):
+    return N.ndarray.min(x, axis=None, out=None)._align(axis=None)
     
+def minc(x):
+    return N.ndarray.min(x, axis=0, out=None)._align(axis=0)
+
+def minr(x):
+    return N.ndarray.min(x, axis=1, out=None)._align(axis=1)
+
+def max(x):
+    return N.ndarray.max(x, axis=None, out=None)._align(axis=None)
+
+def maxc(x):
+    return N.ndarray.max(x, axis=0, out=None)._align(axis=0)
+
+def maxr(x):
+    return N.ndarray.max(x, axis=1, out=None)._align(axis=1)
+
+# Non-sample variance and std-dev
+def var(x):
+    return N.ndarray.var(x, axis=None, out=None)._align(axis=None)
+
+def varc(x):
+    return N.ndarray.var(x, axis=0, out=None)._align(axis=0)
+
+def varr(x):
+    return N.ndarray.var(x, axis=1, out=None)._align(axis=1)
+
+def std(x):
+    return N.ndarray.std(x, axis=None, out=None)._align(axis=None)
+
+def stdc(x):
+    return N.ndarray.std(x, axis=0, out=None)._align(axis=0)
+
+def stdr(x):
+    return N.ndarray.std(x, axis=1, out=None)._align(axis=1)
+
+def sum(x):
+    return N.ndarray.sum(x, axis=None, out=None)._align(axis=None)
+
+def sumc(x):
+    return N.ndarray.sum(x, axis=0, out=None)._align(axis=0)
+
+def sumr(x):
+    return N.ndarray.sum(x, axis=1, out=None)._align(axis=1)
+
+def prod(x):
+    return N.ndarray.prod(x, axis=None, out=None)._align(axis=None)
+
+def prodc(x):
+    return N.ndarray.prod(x, axis=0, out=None)._align(axis=0)
+
+def prodr(x):
+    return N.ndarray.prod(x, axis=1, out=None)._align(axis=1)
+
+#Notare che per la versioner per riga cambia la rappresentaz (discuterne)
+def cumsumc(x):
+    return N.ndarray.cumsum(x, axis=0, out=None)._align(axis=0)
+
+def cumsumr(x):
+    return N.ndarray.cumsum(x, axis=1, out=None)._align(axis=0)
+
+def cumprodc(x):
+    return N.ndarray.cumprod(x, axis=0, out=None)._align(axis=0)
+
+def cumprodr(x):
+    return N.ndarray.cumprod(x, axis=1, out=None)._align(axis=1)
+
+def cols(x):
+    return x.shape[0]
+
+def rows(x):
+    return x.shape[1]
+
+def maxindc(x):
+    return N.ndarray.argmax(x, axis=0, out=None)._align(axis=0)
     
+def maxindr(x):
+    return N.ndarray.argmax(x, axis=1, out=None)._align(axis=0)
+
+def minindc(x):
+    return N.ndarray.argmin(x, axis=0, out=None)._align(axis=0)
+    
+def minindr(x):
+    return N.ndarray.argmin(x, axis=1, out=None)._align(axis=0)
+
+
 ##--------------------------------------------------------------------
 ## Useful 
 ##--------------------------------------------------------------------
