@@ -17,10 +17,9 @@ import scipy as S
 import scipy.linalg as L
 from numpy import ndarray
 from numpy.core.defmatrix import matrix, asmatrix
+import exceptions as EXC
 
-from exceptions import *
-
-import exceptions as E
+import scipy.stats as ST
 
 
 
@@ -134,7 +133,7 @@ def diag(ma):
 
     ma needs to be (1, k) or (k, 1).
     """
-    E._assertVectorOrScalar(asmatrix(ma))
+    EXC._assertVectorOrScalar(asmatrix(ma))
     ma = N.mat(ma)
     return S.diagflat(ma)
  
@@ -159,7 +158,7 @@ def toeplitz(ma, cm=None):
     if cm is provided. Otherwise, it is (k, k)
     """
     ma = asmatrix(ma)
-    E._assertVectorOrScalar(ma)
+    EXC._assertVectorOrScalar(ma)
     if type(cm) == None:
         return asmatrix(L.basic.toeplitz(ma))
     else:
@@ -179,6 +178,9 @@ def toeplitz(ma, cm=None):
 ##--------------------------------------------------------------------
 ## statistics
 ##--------------------------------------------------------------------
+#
+# These functions do not deal with NaN
+#
 
 def mean(x):
     return N.ndarray.mean(x, axis=None, out=None)._align(axis=None)
@@ -207,24 +209,47 @@ def maxc(x):
 def maxr(x):
     return N.ndarray.max(x, axis=1, out=None)._align(axis=1)
 
-# Non-sample variance and std-dev
-def var(x):
-    return N.ndarray.var(x, axis=None, out=None)._align(axis=None)
+# Non-sample variance and std-dev (as in Ox, Gauss)
+# R useses sample version
 
-def varc(x):
-    return N.ndarray.var(x, axis=0, out=None)._align(axis=0)
+def var(x, sample=False):
+    if not(sample):
+        return N.ndarray.var(x, axis=None, out=None)._align(axis=None)
+    else:
+        return N.ndarray.var(x, axis=None, out=None)._align(axis=None) * x.size / (x.size-1)
+  
+def varc(x, sample=False):
+    if not(sample):
+        return N.ndarray.var(x, axis=0, out=None)._align(axis=0)
+    else:
+        return N.ndarray.var(x, axis=0, out=None)._align(axis=0) * x.shape[0] / (x.shape[0]-1)
 
-def varr(x):
-    return N.ndarray.var(x, axis=1, out=None)._align(axis=1)
-
+def varr(x, sample=False):
+    if not(sample):
+        return N.ndarray.var(x, axis=1, out=None)._align(axis=1)
+    else:
+        return N.ndarray.var(x, axis=1, out=None)._align(axis=1) * x.shape[0] / (x.shape[1]-1)
+        
 def std(x):
-    return N.ndarray.std(x, axis=None, out=None)._align(axis=None)
+    if not(sample):
+        return N.ndarray.std(x, axis=None, out=None)._align(axis=None)
+    else:
+        return N.ndarray.std(x, axis=None, out=None)._align(axis=None) * x.size / (x.size-1)
+     
 
 def stdc(x):
-    return N.ndarray.std(x, axis=0, out=None)._align(axis=0)
+    if not(sample):
+        return N.ndarray.std(x, axis=0, out=None)._align(axis=0)
+    else:
+        return N.ndarray.std(x, axis=0, out=None)._align(axis=0) * x.shape[0] / (x.shape[0]-1)
 
 def stdr(x):
-    return N.ndarray.std(x, axis=1, out=None)._align(axis=1)
+    if not(sample):
+        return N.ndarray.std(x, axis=1, out=None)._align(axis=1)
+    else:
+        return N.ndarray.std(x, axis=1, out=None)._align(axis=1) * x.shape[0] / (x.shape[1]-1)
+
+
 
 def sum(x):
     return N.ndarray.sum(x, axis=None, out=None)._align(axis=None)
@@ -244,7 +269,7 @@ def prodc(x):
 def prodr(x):
     return N.ndarray.prod(x, axis=1, out=None)._align(axis=1)
 
-#Notare che per la versioner per riga cambia la rappresentaz (discuterne)
+#Notare che per la versioner per riga di cumXXXr cambia la rappresentaz (discuterne)
 def cumsumc(x):
     return N.ndarray.cumsum(x, axis=0, out=None)._align(axis=0)
 
@@ -258,10 +283,10 @@ def cumprodr(x):
     return N.ndarray.cumprod(x, axis=1, out=None)._align(axis=1)
 
 def cols(x):
-    return x.shape[0]
+    return x.shape[1]
 
 def rows(x):
-    return x.shape[1]
+    return x.shape[0]
 
 def maxindc(x):
     return N.ndarray.argmax(x, axis=0, out=None)._align(axis=0)
@@ -274,6 +299,25 @@ def minindc(x):
     
 def minindr(x):
     return N.ndarray.argmin(x, axis=1, out=None)._align(axis=0)
+
+
+def corr(x,y=None,sample=False,rowvar=False):
+    return N.corrcoef(x,y,rowvar=rowvar,bias=sample)
+
+def cov(x,y=None,sample=False,rowvar=False):
+    return N.cov(x,y,rowvar=rowvar,bias=sample)
+
+def median(x):
+    ''' For each column '''
+    return N.median(x)
+
+def standardize(x):
+    ''' For each column '''    
+    return (x-meanc(x))/stdc(x)
+
+def quantile(x,perc):
+    ''' For each column  - it is buggy nonsense result if perc is tiny'''
+    return ST.scoreatpercentile(x,perc)
 
 
 ##--------------------------------------------------------------------
@@ -349,13 +393,11 @@ def rbind(source, *args):
 ##--------------------------------------------------------------------
 
 if __name__ == "__main__":
-    a = zeros(4,2)
-    print(a)
 
-    b = (2,3,4)
-    b = zeros(3,2)
+    x = asmatrix(N.random.normal(5,2,(4,1)))
+    d = diag(x)
+    print(x)
     
-    diag(b)
     
     
 	
